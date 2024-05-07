@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:28:51 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/06 23:45:28 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:45:08 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	close_sem(t_data *data, pid_t *pid)
 		kill(pid[i], SIGKILL);
 		i++;
 	}
+	free (data);
+	free (pid);
+	exit (0);
 }
 
 void	init_sems2(t_data *data, pid_t *pid)
