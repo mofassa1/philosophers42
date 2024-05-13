@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:28:51 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/07 14:45:08 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:22:47 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	init_sems2(t_data *data, pid_t *pid)
 	data->forks = sem_open("/forks_sem", O_CREAT | O_EXCL, 0644, data->n_philo);
 	if (data->forks == SEM_FAILED)
 	{
-		free(pid);
 		sem_close(data->lock_print);
 		sem_close(data->death);
+		free(pid);
+		free(data);
 		exit (8);
 	}
 }
@@ -46,7 +47,10 @@ void	init_sems2(t_data *data, pid_t *pid)
 void	init_sems(t_data *data, pid_t *pid)
 {
 	if (pid == NULL)
+	{
+		free (data);
 		exit (5);
+	}
 	sem_unlink("/print_sem");
 	data->lock_print = sem_open("/print_sem", O_CREAT | O_EXCL, 0644, 1);
 	if (data->lock_print == SEM_FAILED)

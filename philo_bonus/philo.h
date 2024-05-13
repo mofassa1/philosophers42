@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:08:16 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/07 17:00:17 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:55:03 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	close_sem(t_data *data, pid_t *pid);
 void	init_sems2(t_data *data, pid_t *pid);
 void	init_sems(t_data *data, pid_t *pid);
 void	ft_putstr_fd(char *str, int fd);
-int		ft_atoi(const char *str);
+size_t	ft_atoi(const char *str);
 size_t	get_time(void);
 int		ft_usleep(size_t milliseconds);
 void	routine(t_data	*data, int id);

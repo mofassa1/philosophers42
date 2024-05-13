@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:36:36 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/03 20:01:56 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:07:05 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	take_left(t_philo *philo)
 {
+	if (philo->nb_philo == 1)
+		return (1);
 	LOCK(philo->left_fork);
 	if (print(philo, TAKE))
 	{
@@ -36,12 +38,12 @@ int	take_own(t_philo *philo)
 
 int	first_fork(t_philo *philo)
 {
-	if ((philo->id % 2))
+	if (!(philo->id % 2))
 	{
 		if (take_left(philo))
 			return (1);
 	}
-	else if (!(philo->id % 2))
+	else if ((philo->id % 2))
 	{
 		if (take_own(philo))
 			return (1);
@@ -51,9 +53,7 @@ int	first_fork(t_philo *philo)
 
 int	second_fork(t_philo *philo)
 {
-	if (philo->nb_philo == 1)
-		return (1);
-	if (!(philo->id % 2))
+	if ((philo->id % 2))
 	{
 		if (take_left(philo))
 		{
@@ -61,7 +61,7 @@ int	second_fork(t_philo *philo)
 			return (1);
 		}
 	}
-	else if ((philo->id % 2))
+	else if (!(philo->id % 2))
 	{
 		if (take_own(philo))
 		{

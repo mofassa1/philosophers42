@@ -1,10 +1,10 @@
 NAME = philo
 
 SOURCES = errors.c philo.c utilse.c initialasing.c monitor.c \
-		taking_forks.c routine.c check_print.c
+		taking_forks.c routine.c check_print.c initiakizing2.c
 OBJECTS = $(SOURCES:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread -g3
 
 all: $(NAME)
 
@@ -25,3 +25,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+.SECONDARY: $(OBJECTS)

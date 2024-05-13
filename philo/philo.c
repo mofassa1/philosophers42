@@ -6,13 +6,26 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:16:38 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/03 22:36:39 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:22:09 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	philos_creation(t_philo *philos, t_data *data)
+void	destroy_all(t_data *data, pthread_mutex_t	*mutex)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->n_philo)
+		pthread_mutex_destroy(&mutex[i]);
+	pthread_mutex_destroy(&data->lock_time_start);
+	pthread_mutex_destroy(&data->lock_print);
+	pthread_mutex_destroy(&data->lock_last_meal);
+	pthread_mutex_destroy(&data->lock_die);
+}
+
+void	philos_creation(t_philo *philos, t_data *data, pthread_mutex_t	*mutex)
 {
 	int			i;
 
@@ -30,8 +43,11 @@ void	philos_creation(t_philo *philos, t_data *data)
 		pthread_join(philos[i].thread, NULL);
 		i++;
 	}
+	if (data->die_index == -1)
+		return ;
 	printf("%lu %d died\n", \
 			data->death_time - data->t, philos[data->die_index].id);
+	destroy_all(data, mutex);
 }
 
 int	main(int ac, char **av)
@@ -47,8 +63,9 @@ int	main(int ac, char **av)
 		return (errors(INVALI_VAL, data));
 	philos = ((t_philo *)malloc((data->n_philo) * sizeof(t_philo)));
 	mutex = (pthread_mutex_t *)malloc(data->n_philo * sizeof(pthread_mutex_t));
-	init(philos, data, mutex);
-	philos_creation(philos, data);
+	if (init(philos, data, mutex) != 0)
+		return (1);
+	philos_creation(philos, data, mutex);
 	free(data);
 	free(mutex);
 	free(philos);

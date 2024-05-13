@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:34:42 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/07 00:00:42 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:07:49 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,57 @@ void	init_philos(t_philo *philos, t_data *data, pthread_mutex_t *mutex)
 	}
 }
 
-void	check_failed(t_philo *philos, t_data *data, pthread_mutex_t *mutex)
+int	check_failed(t_philo *philos, t_data *data, pthread_mutex_t *mutex)
 {
 	if ((philos != NULL && data != NULL && mutex != NULL))
-		return ;
+		return (0);
 	if (philos != NULL)
 		free(philos);
 	if (data != NULL)
 		free(data);
 	if (mutex != NULL)
 		free(mutex);
-	exit (2);
+	return (1);
 }
 
-void	init(t_philo *philos, t_data *data, pthread_mutex_t *mutex)
+int	destroy(t_philo *philos, t_data *data, pthread_mutex_t *mutex, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
+	{
+		pthread_mutex_destroy(&mutex[j]);
+		j++;
+	}
+	free(philos);
+	free(data);
+	free(mutex);
+	return (1);
+}
+
+int	init(t_philo *philos, t_data *data, pthread_mutex_t *mutex)
 {
 	int	i;
 	int	count;
 
-	check_failed(philos, data, mutex);
+	if (check_failed(philos, data, mutex) == 1)
+		return (1);
 	i = -1;
 	count = 0;
-	while (++i < data->n_philo)
+	while (++i < data->n_philo && count == 0)
 		count += pthread_mutex_init(&mutex[i], NULL);
-	count += pthread_mutex_init(&data->lock_time_start, NULL);
-	count += pthread_mutex_init(&data->lock_print, NULL);
-	count += pthread_mutex_init(&data->lock_last_meal, NULL);
-	count += pthread_mutex_init(&data->lock_die, NULL);
 	if (count != 0)
+		return (destroy(philos, data, mutex, i));
+	if (mutex_init(philos, data, mutex))
 	{
 		free(philos);
 		free(data);
 		free(mutex);
-		exit (2);
+		return (1);
 	}
 	init_philos(philos, data, mutex);
+	return (0);
 }
 
 int	fill_data(t_data *data, char **av)

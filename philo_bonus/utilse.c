@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:35:37 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/04 21:35:47 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:45:07 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	ft_putstr_fd(char *str, int fd)
 	write(fd, str, ft_strlen(str));
 }
 
-int	ft_atoi(const char *str)
+size_t	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	result;
+	int		i;
+	int		sign;
+	size_t	result;
 
 	i = 0;
 	result = 0;

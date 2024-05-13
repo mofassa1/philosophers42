@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:34:58 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/03 19:52:57 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:48:24 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ void	monitor(t_philo *philo, t_data *data)
 		UNLOCK(&data->lock_die);
 	}
 	data->die_index = i;
+	if (meals_eated(philo, data))
+		data->die_index = -1;
 	data->death_time = get_time();
 }

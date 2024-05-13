@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:07:17 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/03 22:36:46 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/08 20:03:37 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,43 @@ int	errors(int state, t_data *data)
 	return (state);
 }
 
+int	val_len(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] == '0')
+		i++;
+	j = i;
+	while (str[i])
+		i++;
+	return (i - j);
+}
+
+int	is_intiger(char **av)
+{
+	int	i;
+	int	len;
+
+	i = 1;
+	while (av[i])
+	{
+		len = val_len(av[i]);
+		if (len > 10)
+			return (1);
+		if (len == 10)
+		{
+			if (ft_atoi(av[i]) > 2147483647)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	check_arg(char **av)
 {
 	int	i;
@@ -31,11 +68,16 @@ int	check_arg(char **av)
 		j = 0;
 		while (av[i][j])
 		{
-			if (!(av[i][j] >= '0' && av[i][j] <= '9'))
+			if (j == 0 && av[i][j] == '+')
+			{
+				j++;
+				continue ;
+			}
+			if ((!(av[i][j] >= '0' && av[i][j] <= '9')))
 				return (1);
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	return (is_intiger(av));
 }

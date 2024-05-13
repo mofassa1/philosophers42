@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:33:02 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/03 22:32:24 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:06:00 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	ft_putstr_fd(char *str, int fd);
 int		ft_strlen(char *str);
 int		errors(int state, t_data *data);
 int		check_arg(char **av);
-int		ft_atoi(const char *str);
-void	init(t_philo *philos, t_data *data, pthread_mutex_t *mutex);
+size_t	ft_atoi(const char *str);
+int		init(t_philo *philos, t_data *data, pthread_mutex_t *mutex);
 int		fill_data(t_data *data, char **av);
 size_t	get_time(void);
 int		ft_usleep(size_t milliseconds);
@@ -88,4 +88,6 @@ int		first_fork(t_philo *philo);
 int		second_fork(t_philo *philo);
 int		print(t_philo *philo, int flag);
 int		is_dead(t_philo *philo);
+int		mutex_init(t_philo *philos, t_data *data, pthread_mutex_t *mutex);
+int		destroy(t_philo *philos, t_data *data, pthread_mutex_t *mutex, int i);
 #endif

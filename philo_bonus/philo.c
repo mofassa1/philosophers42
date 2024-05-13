@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:08:04 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/07 17:31:42 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:22:56 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	waiting(t_data *data, pid_t *pid)
 		}
 		i++;
 	}
-	printf("%lu %d died\n", get_time() - data->t, status);
 }
 
 int	main(int ac, char **av)
