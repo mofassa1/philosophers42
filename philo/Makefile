@@ -4,7 +4,7 @@ SOURCES = errors.c philo.c utilse.c initialasing.c monitor.c \
 		taking_forks.c routine.c check_print.c initiakizing2.c
 OBJECTS = $(SOURCES:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread -g3
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 all: $(NAME)
 

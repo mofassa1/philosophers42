@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 22:05:33 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/11 16:19:04 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:10:20 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,5 @@ int	fill_data(t_data *data, char **av)
 		data->meals = -1;
 	if (data->n_philo <= 0 || (av[5] && data->meals <= 0))
 		return (1);
-	if (pthread_mutex_init(&data->mutex, NULL) != 0)
-	{
-		free (data);
-		printf("init mutex failed\n");
-		exit (4);
-	}
 	return (0);
 }

@@ -6,21 +6,18 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:08:04 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/08 19:22:56 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:47:42 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	waiting(t_data *data, pid_t *pid)
+void	waiting(t_data *data)
 {
 	int		i;
-	int		c;
 	int		status;
 
 	i = 0;
-	c = 0;
-	(void)pid;
 	while (i < data->n_philo)
 	{
 		waitpid(-1, &status, 0);
@@ -58,6 +55,6 @@ int	main(int ac, char **av)
 			return (free(pid), free(data), FORK_FAILED);
 		i++;
 	}
-	waiting(data, pid);
+	waiting(data);
 	close_sem(data, pid);
 }

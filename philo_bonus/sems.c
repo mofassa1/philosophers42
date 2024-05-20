@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 23:28:51 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/11 16:22:47 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:46:22 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,15 @@ void	close_sem(t_data *data, pid_t *pid)
 	int	i;
 
 	i = 0;
-	sem_close(data->lock_print);
-	sem_close(data->death);
-	sem_close(data->forks);
 	while (i < data->n_philo)
 	{
 		kill(pid[i], SIGKILL);
 		i++;
 	}
+	sem_close(data->lock_print);
+	sem_close(data->forks);
 	free (data);
 	free (pid);
-	exit (0);
 }
 
 void	init_sems2(t_data *data, pid_t *pid)
@@ -37,7 +35,6 @@ void	init_sems2(t_data *data, pid_t *pid)
 	if (data->forks == SEM_FAILED)
 	{
 		sem_close(data->lock_print);
-		sem_close(data->death);
 		free(pid);
 		free(data);
 		exit (8);
@@ -58,15 +55,6 @@ void	init_sems(t_data *data, pid_t *pid)
 		free(pid);
 		free(data);
 		exit (6);
-	}
-	sem_unlink("/death_sem");
-	data->death = sem_open("/death_sem", O_CREAT | O_EXCL, 0644, 1);
-	if (data->death == SEM_FAILED)
-	{
-		free(pid);
-		free(data);
-		sem_close(data->lock_print);
-		exit (7);
 	}
 	init_sems2(data, pid);
 }

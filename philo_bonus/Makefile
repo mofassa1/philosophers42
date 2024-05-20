@@ -4,7 +4,7 @@ SOURCES = checkers.c errors.c initsialising.c philo.c sems.c \
 		utilse.c routine.c
 OBJECTS = $(SOURCES:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -pthread #-g3 -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 all: $(NAME)
 

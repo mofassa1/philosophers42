@@ -6,7 +6,7 @@
 /*   By: afadouac <afadouac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:08:16 by afadouac          #+#    #+#             */
-/*   Updated: 2024/05/08 19:55:03 by afadouac         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:48:10 by afadouac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@
 # define INVALI_VAL 2
 # define FORK_FAILED 3
 
-# define LOCK pthread_mutex_lock
-# define UNLOCK pthread_mutex_unlock
-
 typedef struct s_data
 {
 	sem_t			*lock_print;
@@ -37,14 +34,13 @@ typedef struct s_data
 	int				n_philo;
 	int				id;
 	int				meals_eated;
-	size_t			last_meal;
+	struct timeval	last_meal;
 	size_t			t;
 	int				die;
 	size_t			t_die;
 	int				t_eat;
 	int				t_sleap;
 	int				meals;
-	pthread_mutex_t	mutex;
 }				t_data;
 
 int		finish_meals(t_data *data);
